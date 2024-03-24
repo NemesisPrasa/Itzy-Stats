@@ -1,6 +1,8 @@
 import React from 'react'
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Image01 from '../../assets/image01.png'
 import { FaArrowRight } from "react-icons/fa";
+import ExploreButton from '../Buttons/ExploreButton';
 
 const HeroSection = () => {
   return (
@@ -16,7 +18,7 @@ const HeroSection = () => {
                         Stats & Achievemnets</h1>
 
                     <div className='button-container'>
-                        <button className="hero-button">Explore </button>
+                        <Link to="/Itzy-stats" className="nav-link">{<ExploreButton/>}</Link>
                         <p>Read more about us <FaArrowRight /> </p>
                     </div>
                    

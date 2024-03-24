@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import FilterOptions from './FilterOptions';
 import GraphData from './Graphs/GraphData';
-import SignUpButton from './SignUpButton';
+import SignUpButton from './Buttons/SignUpButton';
 import HeroSection from './Hero/HeroSection'
+import ItzyDashBoard from './Pages/ItzyDashBoard';
 
 const NavbarSpecial = () => {
     const [isOpen, setIsDropdownOpen] = useState(false);
@@ -51,6 +52,7 @@ const NavbarSpecial = () => {
                     <Route path="/stats-table" element={<FilterOptions />} />
                     <Route path="/stats-graph" element={<GraphData />} />
                     <Route path="/" element = {<HeroSection />}/>
+                    <Route path="/Itzy-stats" element={<ItzyDashBoard/>} />
                 </Routes>
        
         </BrowserRouter>

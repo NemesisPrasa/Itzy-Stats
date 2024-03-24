@@ -7,15 +7,17 @@ import axios from 'axios';
 const YesterDayViews = ({ index, videoId }) => {
     const [videoData, setVideoData] = useState(null);
     const [viewCount, setViewCount] = useState(0);
-    const [yesterdayViews, setYesterdayViews] = useState(null);
+    const [yesterdayViews, setYesterdayViews] = useState([]);
 
     useEffect(() => {
         const fetchVideoData = async () => {
             try {
                 const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,statistics&key=AIzaSyAEnQL2SMLAwccHSI8YV2713W_RERBj7-k`);
                 const fetchedData = response.data.items[0];
+                
                 if (fetchedData) {
                     setVideoData(fetchedData);
+                   
                     const currentViewCount = parseInt(fetchedData.statistics.viewCount);
                     setViewCount(currentViewCount);
                  
@@ -29,7 +31,7 @@ const YesterDayViews = ({ index, videoId }) => {
             try {
                 const response = await axios.get(`http://localhost:3001/calculateViewsDifference/${videoId}`);
                 setYesterdayViews(response.data.difference);
-              
+                
             } catch (error) {
                 console.error('Error fetching yesterday stats:', error);
             }

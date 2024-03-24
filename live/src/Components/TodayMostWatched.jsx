@@ -51,7 +51,7 @@ const TodayMostWatched = () => {
                 const sortedTodayViewsData = todayViewsData.slice().sort((a, b) => b.todayViewsCount - a.todayViewsCount);
                 setTodayViews(sortedTodayViewsData);
                 const sortedVideoIds = sortedTodayViewsData.map(video => video.id);
-                console.log(sortedVideoIds);
+            
                 setVideoIds(sortedVideoIds);
             } catch (error) {
                 console.error('Error fetching video details:', error.response?.data?.error?.message || error.message);

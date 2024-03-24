@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cron = require('node-cron');
 const axios = require('axios');
 const VideoStats = require('./models/VideoStats');
+const SpotifyStats = require('./models/SpotifyStats');
 const cors = require('cors');
 
 const app = express();
@@ -120,6 +121,17 @@ app.get('/viewsOverTime/:videoId', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+app.get('/spotifyStats/:date', async (req, res) => {
+    const date = req.params.date;
+    try {
+      const songs = await SpotifyStats.find({ date });
+      res.json(songs);
+    } catch (error) {
+      console.error('Error fetching songs:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
 
 const PORT = 3001;

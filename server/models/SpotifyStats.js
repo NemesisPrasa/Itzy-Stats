@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const spotifyStatsSchema = new mongoose.Schema({
-    date: { type: String, required: true },
-    songTitles: [
+const videStatsSchema = new mongoose.Schema({
+    date: String,
+  songTitles: [
     {
       name: String,
       url: String,
@@ -12,6 +12,6 @@ const spotifyStatsSchema = new mongoose.Schema({
   ]
 });
 
-const SpotifyStats = mongoose.model('spotifyStats', spotifyStatsSchema);
+const SpotifyStats = mongoose.model('spotifystats', videStatsSchema);
 
 module.exports = SpotifyStats;

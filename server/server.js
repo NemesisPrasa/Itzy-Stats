@@ -122,11 +122,21 @@ app.get('/viewsOverTime/:videoId', async (req, res) => {
     }
 });
 
-app.get('/spotifyStats/:date', async (req, res) => {
-    const date = req.params.date;
+app.get('/spotifyStat/:date', async (req, res) => {
     try {
-      const songs = await SpotifyStats.find({ date });
-      res.json(songs);
+      const { date } = req.params;
+      const spotifyStat = await SpotifyStats.find({date}, 'songTitles').exec();
+      res.json(spotifyStat);
+    } catch (error) {
+      console.error('Error fetching songs:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+app.get('/spotifyStat', async (req, res) => {
+    try {
+      const spotifyStatLast = await SpotifyStats.find().sort({ date: -1 }).limit(1).exec();
+      res.json(spotifyStatLast);
     } catch (error) {
       console.error('Error fetching songs:', error);
       res.status(500).json({ error: 'Internal server error' });

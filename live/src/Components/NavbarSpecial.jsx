@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import FilterOptions from './FilterOptions';
-import GraphData from './Graphs/GraphData';
+import { Link } from "react-router-dom";
 import SignUpButton from './Buttons/SignUpButton';
-import HeroSection from './Hero/HeroSection'
-import ItzyDashBoard from './Pages/ItzyDashBoard';
+
 
 const NavbarSpecial = () => {
     const [isOpen, setIsDropdownOpen] = useState(false);
@@ -14,7 +11,7 @@ const NavbarSpecial = () => {
     };
 
     return (
-        <BrowserRouter>
+       
 
         <nav className="navbar">
             <div>
@@ -29,8 +26,9 @@ const NavbarSpecial = () => {
                     <span className="nav-link">Explore Stats</span>
                     {isOpen && (
                         <div className="dropdown-menu">
-                            <Link to="/stats-table" className="dropdown-item">Stats Table</Link>
+                            <Link to="/stats-table" className="dropdown-item">YT Stats</Link>
                             <Link to="/stats-graph" className="dropdown-item">Stats Graph</Link>
+                            <Link to="/stats-spotify" className="dropdown-item">Spotify Stats</Link>
                         </div>
                     )}
                 </li>
@@ -45,17 +43,16 @@ const NavbarSpecial = () => {
             <div>
                 <SignUpButton />
             </div>
+
+            
                
          
         </nav>
-                <Routes>
-                    <Route path="/stats-table" element={<FilterOptions />} />
-                    <Route path="/stats-graph" element={<GraphData />} />
-                    <Route path="/" element = {<HeroSection />}/>
-                    <Route path="/Itzy-stats" element={<ItzyDashBoard/>} />
-                </Routes>
+
+        
+                
        
-        </BrowserRouter>
+       
     );
 };
 

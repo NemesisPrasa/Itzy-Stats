@@ -18,7 +18,7 @@ const HeroSection = () => {
                         Stats & Achievemnets</h1>
 
                     <div className='button-container'>
-                        <Link to="/Itzy-stats" className="nav-link">{<ExploreButton/>}</Link>
+                        <Link to="/Itzy-dashboard" className="nav-link">{<ExploreButton/>}</Link>
                         <p>Read more about us <FaArrowRight /> </p>
                     </div>
                    

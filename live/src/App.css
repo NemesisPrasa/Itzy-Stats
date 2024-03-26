@@ -93,6 +93,7 @@
     width: 100%;
     border-collapse: collapse;
     margin: 10px auto;
+    color: white;
 }
 
 .video-table td {
@@ -132,6 +133,54 @@
 }
 
 .video-table .loading-cell {
+    text-align: center;
+}
+
+.spotify-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px auto;
+    color: white;
+}
+
+.spotify-table a {
+    text-decoration: none;
+    color: white;
+}
+
+.spotify-table  td {
+    max-width: 400px;
+    width: 180px; /* Set a maximum width for the table cell */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Display ellipsis for overflow text */
+    white-space: nowrap; /* Prevent wrapping */
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+
+}
+
+.spotify-table  tr:hover {
+    background-color: rgb(92, 88, 112);
+}
+
+.spotify-table  th,
+.spotify-table  td {
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.spotify-table  th {
+    background-color: #181731;
+    font-weight: bold;
+}
+
+.spotify-table  td p {
+    margin: 0;
+}
+
+.spotify-table  .loading-cell {
     text-align: center;
 }
 

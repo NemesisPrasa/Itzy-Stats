@@ -1,0 +1,14 @@
+.Album-stats{
+    display: flex;
+    width: 85%;
+    margin: 0 auto;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 20px;
+    border: 1px solid #5a5959;
+}
+
+.piechart{
+    border: 1px solid #5a5959;
+}

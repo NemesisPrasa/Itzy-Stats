@@ -5,6 +5,8 @@ import FilterOptions from './Components/FilterOptions';
 import GraphData from './Components/Graphs/GraphData';
 import HeroSection from './Components/Hero/HeroSection'
 import ItzySpotifyStats from './Components/Pages/ItzySpotifyStats';
+import ItzyDashBoard from './Components/Pages/ItzyDashBoard';
+import SpotifyAlbumStats from './Components/Pages/SpotifyAlbumStats';
 import './App.css';
 
 const App = () => {
@@ -20,6 +22,8 @@ const App = () => {
                     <Route path="/stats-graph" element={<GraphData />} />
                     <Route path="/" element = {<HeroSection />}/>
                     <Route path="/stats-spotify" element={<ItzySpotifyStats />} />
+                    <Route path="/Itzy-dashboard" element={<ItzyDashBoard/>}/>
+                    <Route path="/stats-spotify-album" element={<SpotifyAlbumStats />} />
                 
                 </Routes>
               

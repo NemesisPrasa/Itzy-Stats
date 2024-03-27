@@ -4,6 +4,7 @@ const cron = require('node-cron');
 const axios = require('axios');
 const VideoStats = require('./models/VideoStats');
 const SpotifyStats = require('./models/SpotifyStats');
+const AlbumStats = require('./models/AlbumStats');
 const cors = require('cors');
 
 const app = express();
@@ -142,6 +143,17 @@ app.get('/spotifyStat', async (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     }
   });
+
+app.get('/albumNames/:album', async (req, res) => {
+    try {
+      const {album} = req.params;
+      const albumNames = await AlbumStats.find({album}, 'songs').exec();
+      res.json(albumNames);
+    } catch (error) {
+      console.error('Error fetching songs:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 
 const PORT = 3001;

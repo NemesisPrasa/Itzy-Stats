@@ -1,6 +1,7 @@
 .Itzy-dash-board{
     width: 100%;
     height: 91vh;
+    border: 1px solid #a39999;
 }
 
 .Itzy-dash-board h1{

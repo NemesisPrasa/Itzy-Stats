@@ -29,6 +29,7 @@ const NavbarSpecial = () => {
                             <Link to="/stats-table" className="dropdown-item">YT Stats</Link>
                             <Link to="/stats-graph" className="dropdown-item">Stats Graph</Link>
                             <Link to="/stats-spotify" className="dropdown-item">Spotify Stats</Link>
+                            <Link to="/stats-spotify-album" className="dropdown-item">Spotify Album Stats</Link>
                         </div>
                     )}
                 </li>

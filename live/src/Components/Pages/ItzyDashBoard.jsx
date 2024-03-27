@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+
 import './itzyDashBoard.css';
 
 const ItzyDashBoard = () => {
@@ -6,7 +6,9 @@ const ItzyDashBoard = () => {
   return (
 
     <div className='Itzy-dash-board'>
-      
+      <h1>Itzy Dash Board</h1>
+
+
     </div>
 
 

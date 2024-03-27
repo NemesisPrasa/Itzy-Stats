@@ -20,7 +20,7 @@ const TodayMostWatched = () => {
         const fetchYesterdayStats = async () => {
             try {
                 const promises = videoIds.map(async (videoId) => {
-                    const response = await axios.get(`https://itzy-stats-3.onrender.com/videoStats/${videoId}`);
+                    const response = await axios.get(`https://itzy-stats.onrender.com/videoStats/${videoId}`);
                     return { id: videoId, viewCount: response.data?.viewCount };
                 });
 

@@ -8,7 +8,7 @@ const ViewsOverTimeChart = ({ videoId }) => {
     useEffect(() => {
         const fetchChartData = async () => {
             try {
-                const response = await axios.get(`https://itzy-stats-3.onrender.com/viewsOverTime/${videoId}`);
+                const response = await axios.get(`https://itzy-stats.onrender.com/viewsOverTime/${videoId}`);
                 const data = response.data;
               
 

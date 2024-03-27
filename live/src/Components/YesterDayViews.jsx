@@ -29,7 +29,7 @@ const YesterDayViews = ({ index, videoId }) => {
 
         const fetchYesterdayStats = async () => {
             try {
-                const response = await axios.get(`https://itzy-stats-3.onrender.com/calculateViewsDifference/${videoId}`);
+                const response = await axios.get(`https://itzy-stats.onrender.com/calculateViewsDifference/${videoId}`);
                 setYesterdayViews(response.data.difference);
                 
             } catch (error) {

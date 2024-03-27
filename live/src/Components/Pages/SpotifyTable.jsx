@@ -8,7 +8,7 @@ const SpotifyTable = ({ date }) => {
     const fetchSongs = async () => {
 
       try {
-        const response = await axios.get(`http://localhost:3001/spotifyStat/${date}`);
+        const response = await axios.get(`https://itzy-stats-3.onrender.com/spotifyStat/${date}`);
         setSongs(response.data[0]?.songTitles);
       } catch (error) {
         console.error('Error fetching songs:', error);

@@ -4,7 +4,7 @@ import { PieChart, Pie, Tooltip, Cell, Label } from 'recharts';
 import './SpotifyAlbumStats.css';
 
 const SpotifyAlbumStats = () => {
-  const [albums, setAlbums] = useState(['ITz_ME','CRAZY_IN_LOVE','GUESS_WHO','NOT_SHY','ITz_ICY','CHESHIRE','CHECKMATE','KILL_MY_DOUBT','BORN_TO_BE','RINGO','NOT_SHY(EN)','ITz_ITZY(JP)',]);
+  const [albums, setAlbums] = useState(['ITz_ME','CRAZY_IN_LOVE','GUESS_WHO','NOT_SHY','ITz_ICY','CHESHIRE','CHECKMATE','KILL_MY_DOUBT','BORN_TO_BE','RINGO','NOT_SHY(EN)','ITz_ITZY(JP)']);
   const [songs, setSongs] = useState([]);
   const [date, setDate] = useState('');
   const [useStats, setUseStats] = useState([]);
@@ -16,8 +16,10 @@ const SpotifyAlbumStats = () => {
     const fetchAlbumNames = async () => {
       try {
         const albumPromises = albums.map(async (album) => {
-          const response = await axios.get(`http://localhost:3001/albumNames/${album}`);
+          const response = await axios.get(`https://itzy-stats-3.onrender.com/albumNames/${album}`);
+          console.log(response);
           return { album, songs: response.data[0]?.songs || [] };
+          
         });
         const albumData = await Promise.all(albumPromises);
         setSongs(albumData);
@@ -32,7 +34,7 @@ const SpotifyAlbumStats = () => {
   useEffect(() => {
     const fetchDate = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/spotifyStat');
+        const response = await axios.get('https://itzy-stats-3.onrender.com/spotifyStat');
         if (response.data.length > 0) {
           setDate(response.data[0].date);
         }
@@ -47,7 +49,7 @@ const SpotifyAlbumStats = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/spotifyStat/${date}`);
+        const response = await axios.get(`https://itzy-stats-3.onrender.com/spotifyStat/${date}`);
         const statsData = response.data[0]?.songTitles || [];
 
         const totalStreamsObj = {};

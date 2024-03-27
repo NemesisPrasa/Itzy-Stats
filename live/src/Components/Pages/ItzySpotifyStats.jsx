@@ -11,7 +11,7 @@ const ItzySpotifyStats = () => {
   useEffect(() => {
     const fetchDate = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/spotifyStat');
+        const response = await axios.get('https://itzy-stats-3.onrender.com/spotifyStat');
         if (response.data.length > 0) {
           setDate(response.data[0].date);
         }

@@ -30,7 +30,7 @@ const YouTubeVideoCard = ({ index, videoId }) => {
 
         const fetchYesterdayStats = async () => {
             try {
-                const response = await axios.get(`https://itzy-stats.onrender.com/videoStats/${videoId}`);
+                const response = await axios.get(`http://localhost:3001/videoStats/${videoId}`);
                 if (response.data) {
                     setYesterdayViews(response.data.viewCount);
                    

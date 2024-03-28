@@ -16,7 +16,7 @@ const SpotifyAlbumStats = () => {
     const fetchAlbumNames = async () => {
       try {
         const albumPromises = albums.map(async (album) => {
-          const response = await axios.get(`https://itzy-stats.onrender.com/albumNames/${album}`);
+          const response = await axios.get(`http://localhost:3001/albumNames/${album}`);
           console.log(response);
           return { album, songs: response.data[0]?.songs || [] };
           
@@ -34,7 +34,7 @@ const SpotifyAlbumStats = () => {
   useEffect(() => {
     const fetchDate = async () => {
       try {
-        const response = await axios.get('https://itzy-stats.onrender.com/spotifyStat');
+        const response = await axios.get('http://localhost:3001/spotifyStat');
         if (response.data.length > 0) {
           setDate(response.data[0].date);
         }
@@ -49,7 +49,7 @@ const SpotifyAlbumStats = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await axios.get(`https://itzy-stats.onrender.com/spotifyStat/${date}`);
+        const response = await axios.get(`http://localhost:3001/spotifyStat/${date}`);
         const statsData = response.data[0]?.songTitles || [];
 
         const totalStreamsObj = {};

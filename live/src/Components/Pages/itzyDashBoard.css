@@ -1,7 +1,6 @@
 .Itzy-dash-board{
     width: 100%;
     height: 91vh;
-    border: 1px solid #a39999;
 }
 
 .Itzy-dash-board h1{
@@ -15,4 +14,29 @@
     font-size: 15px;
     color: white;
     padding: 10px;
+}
+
+.frist-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #272647;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    height: auto;
+    border: 1px solid #84839c;
+    margin: 0;
+    padding: 0;
+}
+
+.right-side-top{
+    display: flex;
+    flex-direction: column;
+}
+
+.right-side-top h1{
+    font-size: 15px;
+    margin-left: 5px;
 }

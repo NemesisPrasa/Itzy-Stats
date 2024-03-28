@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const ViewsOverTimeChart = ({ videoId }) => {
+const FrontGraphYt = ({ videoId }) => {
     const [chartData, setChartData] = useState([]);
 
     useEffect(() => {
@@ -10,7 +10,6 @@ const ViewsOverTimeChart = ({ videoId }) => {
             try {
                 const response = await axios.get(`http://localhost:3001/viewsOverTime/${videoId}`);
                 const data = response.data;
-              
 
                 // Process data to extract timestamp and view count
                 const chartData = data.map(entry => ({
@@ -30,22 +29,15 @@ const ViewsOverTimeChart = ({ videoId }) => {
 
     return (
         <div className='chartViews'>
-            <LineChart width={800} height={400} data={chartData} margin={{left:40, top:40,}}>
-                <CartesianGrid strokeDasharray="3 3" />
+            <BarChart width={500} height={250} data={chartData} margin={{ left: 0, top: 0 }}>
                 <XAxis dataKey="timestamp" />
-                <YAxis dataKey="viewCount"/>
+                <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="viewCount" stroke="#8884d8" strokeWidth={3}/>
-            </LineChart>
-
+                <Bar dataKey="viewCount" fill="#8884d8" />
+            </BarChart>
         </div>
     );
 };
 
-export default ViewsOverTimeChart;
-
-
-
-
-
+export default FrontGraphYt;

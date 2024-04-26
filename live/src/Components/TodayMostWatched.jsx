@@ -16,57 +16,62 @@ const TodayMostWatched = () => {
     const [arangedVideoIds, setVideoIds] = useState([]);
 
     useEffect(() => {
-
         const fetchYesterdayStats = async () => {
             try {
                 const promises = videoIds.map(async (videoId) => {
-                    const response = await axios.get(`https://itzy-stats.onrender.com/videoStats/${videoId}`);
+                    const response = await axios.get(`http://localhost:3001/videoStats/${videoId}`);
                     return { id: videoId, viewCount: response.data?.viewCount };
                 });
-
+    
                 const fetchedViews = await Promise.all(promises);
                 setYesterdayViews(fetchedViews);
+                return fetchedViews; // Return fetchedViews for Promise.all
             } catch (error) {
                 console.error('Error fetching yesterday stats:', error.message);
+                return []; // Return an empty array in case of error
             }
         };
-
-        const fetchVideoData = async () => {
+    
+        const fetchVideoData = async (yesterdayViewsData) => {
             try {
                 const promises = videoIds.map(async (videoId) => {
                     const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,statistics&key=AIzaSyAEnQL2SMLAwccHSI8YV2713W_RERBj7-k`);
                     return response.data.items[0];
                 });
-
+    
                 const fetchedData = await Promise.all(promises);
                 setVideos(fetchedData);
-
+    
                 // Calculate today's views for each video
                 const todayViewsData = fetchedData.map(video => {
-                    const yesterdayViewCount = parseInt(yesterdayViews.find(v => v.id === video.id)?.viewCount);
+                    const yesterdayViewCount = parseInt(yesterdayViewsData.find(v => v.id === video.id)?.viewCount);
                     const currentViewCount = parseInt(video?.statistics?.viewCount);
                     const todayViewsCount = currentViewCount - yesterdayViewCount;
                     return { ...video, todayViewsCount };
                 });
+                console.log(todayViewsData);
                 const sortedTodayViewsData = todayViewsData.slice().sort((a, b) => b.todayViewsCount - a.todayViewsCount);
                 setTodayViews(sortedTodayViewsData);
                 const sortedVideoIds = sortedTodayViewsData.map(video => video.id);
-            
+                console.log(sortedVideoIds);
+              
                 setVideoIds(sortedVideoIds);
             } catch (error) {
                 console.error('Error fetching video details:', error.response?.data?.error?.message || error.message);
             }
         };
-
-        
-
-        // Fetch video data and yesterday's stats
-        fetchVideoData();
-        fetchYesterdayStats();
-    }, []);
+    
+        // Fetch yesterday's stats and then fetch video data
+        fetchYesterdayStats()
+            .then(yesterdayViewsData => fetchVideoData(yesterdayViewsData))
+            .catch(error => console.error('Error fetching data:', error));
+    
+    }, []); // Run once on component mount
+    
 
     return (
         <div className="video-container">
+            {arangedVideoIds ? (
             <table className="video-table">
                 <thead>
                     <tr>
@@ -86,8 +91,13 @@ const TodayMostWatched = () => {
                      ))}
                 </tbody>
             </table>
+            ) : (
+                <p>Loading...</p>
+            )}
         </div>
     );
 };
 
 export default TodayMostWatched;
+
+//AIzaSyAEnQL2SMLAwccHSI8YV2713W_RERBj7-k

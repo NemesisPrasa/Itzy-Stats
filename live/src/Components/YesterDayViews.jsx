@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// Import the default odometer styles
-
-
 const YesterDayViews = ({ index, videoId }) => {
     const [videoData, setVideoData] = useState(null);
     const [viewCount, setViewCount] = useState(0);
     const [yesterdayViews, setYesterdayViews] = useState([]);
+    const [allData, setAllData] = useState([]);
 
     useEffect(() => {
         const fetchVideoData = async () => {
@@ -31,6 +29,7 @@ const YesterDayViews = ({ index, videoId }) => {
             try {
                 const response = await axios.get(`http://localhost:3001/calculateViewsDifference/${videoId}`);
                 setYesterdayViews(response.data.difference);
+
                 
             } catch (error) {
                 console.error('Error fetching yesterday stats:', error);
@@ -40,7 +39,7 @@ const YesterDayViews = ({ index, videoId }) => {
         // Fetch video data and yesterday's views initially
         fetchVideoData();
         fetchYesterdayStats();
-
+   
     }, []);
 
     // Function to remove "ITZY" and "@ITZY" from the title

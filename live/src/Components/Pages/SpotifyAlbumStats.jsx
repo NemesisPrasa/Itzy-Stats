@@ -17,7 +17,6 @@ const SpotifyAlbumStats = () => {
       try {
         const albumPromises = albums.map(async (album) => {
           const response = await axios.get(`http://localhost:3001/albumNames/${album}`);
-          console.log(response);
           return { album, songs: response.data[0]?.songs || [] };
           
         });
@@ -59,6 +58,7 @@ const SpotifyAlbumStats = () => {
           const matchedStats = statsData.filter(song => songs.includes(song.name));
           const total = matchedStats.reduce((acc, song) => acc + parseInt(song.Streams.replace(/,/g, '')), 0);
           totalStreamsObj[album] = total;
+          console.log(matchedStats);
 
           // Correct calculation for totalDailyStreams
           const totalDaily = matchedStats.reduce((acc, song) => acc + parseInt(song.DailyStreams.replace(/,/g, '')), 0);
@@ -81,7 +81,7 @@ const SpotifyAlbumStats = () => {
   }));
 
   const getColor = (index) => {
-    const colorPalette = ['#8884d8', '#83a6ed', '#8dd1e1', '#82ca9d', '#a4de6c', '#d0ed57', '#ffc658', '#ffa94d', '#ff7c43', '#ff4d4f', '#f759ab', '#b37feb'];
+    const colorPalette = ['#4c4a75', '#3b4b6b', '#3e5c63', '#395945', '#455e2d', '#50610c', '#6e4b09', '#803413', '#663824', '#631d1e', '#521d38', '#322342'];
     return colorPalette[index % colorPalette.length];
   };
 
@@ -93,25 +93,25 @@ const SpotifyAlbumStats = () => {
     <div className='Album-stats'>
       
       <div className='spotify-table'>
-      <p>Date: {date}</p>
+      <p className='albumdate'>Date: {date}</p>
       <table>
-        <thead>
-          <tr>
-            <th>Album</th>
-            <th>Total Streams</th>
-            <th>Total Daily Streams</th>
-          </tr>
-        </thead>
-        <tbody>
-          {albums.map((album) => (
-            <tr key={album}>
-              <td>{album}</td>
-              <td>{parseInt(totalStreams[album] || 0).toLocaleString()}</td>
-              <td>{parseInt(totalDailyStreams[album] || 0).toLocaleString()}</td>
+          <thead>
+            <tr>
+              <th>Album</th>
+              <th>Total Streams</th>
+              <th>Total Daily Streams</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {albums.map((album, index) => (
+              <tr key={album}>
+                <td style={{ backgroundColor: colors[index] }}>{album}</td>
+                <td>{parseInt(totalStreams[album] || 0).toLocaleString()}</td>
+                <td>{parseInt(totalDailyStreams[album] || 0).toLocaleString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <PieChart width={800} height={500} className='piechart'>

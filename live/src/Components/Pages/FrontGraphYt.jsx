@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const FrontGraphYt = ({ videoId }) => {
     const [chartData, setChartData] = useState([]);
@@ -8,16 +8,25 @@ const FrontGraphYt = ({ videoId }) => {
     useEffect(() => {
         const fetchChartData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/viewsOverTime/${videoId}`);
+                const response = await axios.get(`http://localhost:3001/frontGrpah/${videoId}`);
                 const data = response.data;
 
                 // Process data to extract timestamp and view count
                 const chartData = data.map(entry => ({
                     timestamp: new Date(entry.date).toISOString().split('T')[0], // Get date part
-                    viewCount: entry.viewCountDiff,
+                    viewCount: entry.viewCountDifferent,
                 }));
 
-                setChartData(chartData);
+                const sortedData = chartData.sort((a, b) => {
+                    // Convert timestamps to Date objects for comparison
+                    const dateA = new Date(a.timestamp);
+                    const dateB = new Date(b.timestamp);
+                
+                    // Compare dates
+                    return dateA - dateB;
+                });
+
+                setChartData( sortedData);
             } catch (error) {
                 console.error('Error fetching chart data:', error);
             }
@@ -29,15 +38,18 @@ const FrontGraphYt = ({ videoId }) => {
 
     return (
         <div className='chartViews'>
-            <BarChart width={500} height={250} data={chartData} margin={{ left: 0, top: 0 }}>
-                <XAxis dataKey="timestamp" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Bar dataKey="viewCount" fill="#8884d8" />
-            </BarChart>
+            <ResponsiveContainer width={380} height={250}>
+                <BarChart data={chartData} >
+                    <XAxis dataKey="timestamp" tick={{ fill: '#b5bcbd', fontSize: 11 }}/>
+                    <YAxis type="number" tick={{ fill: '#b5bcbd', fontSize: 11 }} />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="viewCount" fill="#ed5c8d" />
+                </BarChart>
+            </ResponsiveContainer>
         </div>
     );
 };
 
 export default FrontGraphYt;
+

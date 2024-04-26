@@ -14,7 +14,6 @@ const GraphData = () => {
 
   return (
     <div>
-        <h1>Views Over Time Graph</h1>
             <VideoIdSelector onVideoIdSelected={handleVideoIdSelected} />
              {selectedVideoId && (
             <ViewsOverTimeGraph videoId={selectedVideoId} viewsOverTimeData={viewsOverTimeData} />

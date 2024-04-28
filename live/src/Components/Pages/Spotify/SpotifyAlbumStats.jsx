@@ -93,13 +93,13 @@ const SpotifyAlbumStats = () => {
         </table>
       </div>
 
-      <PieChart width={800} height={500} className='piechart'>
+      <PieChart width={800} height={600} className='piechart'>
         <Pie
           data={pieChartData}
           cx={400}
           cy={250}
-          innerRadius={140}
-          outerRadius={180}
+          innerRadius={160}
+          outerRadius={200}
           fill="#8884d8"
           dataKey="value"
           label={({ name, value }) => `${name} (${(value * 100 / pieChartData.reduce((acc, entry) => acc + entry.value, 0)).toFixed(2)}%)`}

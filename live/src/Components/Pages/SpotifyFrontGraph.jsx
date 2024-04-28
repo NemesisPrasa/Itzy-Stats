@@ -9,7 +9,7 @@ const SpotifyFrontGraph = () => {
 useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/spotifrontGraph');
+            const response = await axios.get('https://itzy-stats.onrender.com/spotifrontGraph');
             const dateEntries = response.data; 
             console.log(dateEntries)
 

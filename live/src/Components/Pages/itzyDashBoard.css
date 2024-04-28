@@ -143,3 +143,24 @@
     color:#10e84a;
     text-align: center;
 }
+
+.growth{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+}
+
+.upArrow{
+    color: #c0e810;
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.downArrow{
+    color: rgb(224, 30, 72);
+    font-size: 20px;
+}

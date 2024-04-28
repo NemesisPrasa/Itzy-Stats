@@ -8,7 +8,7 @@ const ArtistInfoComponent = () => {
   useEffect(() => {
     const fetchArtistInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/artist-info/${artistID}`);
+        const response = await axios.get(`https://itzy-stats.onrender.com/artist-info/${artistID}`);
         setArtistInfo(response);
         console.log('Artist info:', response);
       } catch (error) {

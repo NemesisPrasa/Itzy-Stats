@@ -9,7 +9,7 @@ const SpotifyTotalStreams = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/spotifyStat');
+                const response = await axios.get('https://itzy-stats.onrender.com/spotifyStat');
                 const data = response.data[0].songTitles;
                 
                 // Process data to extract total streams

@@ -127,6 +127,31 @@ app.get('/viewsOverTime/:videoId', async (req, res) => {
     }
 });
 
+app.get('/youtubeDailyDifferenece/:videoId', async (req, res) => {
+    try {
+        const { videoId } = req.params;
+        const viewsData = await VideoStats.find({ videoId }).sort({ timestamp:-1 }).limit(2).exec();
+
+        // Calculate view count difference per day
+        const viewCountDiffData = viewsData.map((data, index) => {
+            if (index < viewsData.length - 1) {
+                const currentViewCount = data.viewCount;
+                const nextViewCount = viewsData[index + 1].viewCount;
+                const viewCountDiff = currentViewCount - nextViewCount;
+
+                
+                return { date: data.timestamp, viewCountDifferent: viewCountDiff };
+            }
+            return null;
+        }).filter(item => item !== null);
+
+        res.json(viewCountDiffData);
+    } catch (error) {
+        console.error('Error fetching views over time:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 app.get('/frontGrpah/:videoId', async (req, res) => {
     try {
         const { videoId } = req.params;

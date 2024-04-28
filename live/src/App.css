@@ -89,14 +89,14 @@
 
 
 .video-table {
-    width: 100%;
+    width: 85%;
     border-collapse: collapse;
     margin: 10px auto;
     color: white;
 }
 
 .video-table td {
-    max-width: 170px; /* Set a maximum width for the table cell */
+    max-width: 120px; /* Set a maximum width for the table cell */
     overflow: hidden; /* Hide overflow text */
     text-overflow: ellipsis; /* Display ellipsis for overflow text */
     white-space: nowrap; /* Prevent wrapping */

@@ -8,7 +8,7 @@ const InstaFollowers = ({userID, name}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/followers/${userID}`);
+        const response = await axios.get(`https://itzy-stats.onrender.com/followers/${userID}`);
         const data = response.data;
         setFollowersCount(data.followersCount); // Update state with followers count
         setProfilePicSrc(data.profilePicSrc); // Update state with profile picture src

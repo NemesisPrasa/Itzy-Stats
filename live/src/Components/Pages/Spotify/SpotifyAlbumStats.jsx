@@ -1,39 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PieChart, Pie, Tooltip, Cell, Label } from 'recharts';
+import { albumInfo } from '../../../Constants/index.js';
 import './SpotifyAlbumStats.css';
 
 const SpotifyAlbumStats = () => {
-  const [albums, setAlbums] = useState(['ITz_ME','CRAZY_IN_LOVE','GUESS_WHO','NOT_SHY','ITz_ICY','CHESHIRE','CHECKMATE','KILL_MY_DOUBT','BORN_TO_BE','RINGO','NOT_SHY(EN)','ITz_ITZY(JP)']);
-  const [songs, setSongs] = useState([]);
+  const [albums, setAlbums] = useState(albumInfo);
   const [date, setDate] = useState('');
-  const [useStats, setUseStats] = useState([]);
   const [totalStreams, setTotalStreams] = useState({});
   const [totalDailyStreams, setTotalDailyStreams] = useState({});
   const [colors, setColors] = useState([]);
 
   useEffect(() => {
-    const fetchAlbumNames = async () => {
-      try {
-        const albumPromises = albums.map(async (album) => {
-          const response = await axios.get(`http://localhost:3001/albumNames/${album}`);
-          return { album, songs: response.data[0]?.songs || [] };
-          
-        });
-        const albumData = await Promise.all(albumPromises);
-        setSongs(albumData);
-      } catch (error) {
-        console.error('Error fetching album names:', error);
-      }
-    };
-
-    fetchAlbumNames();
-  }, [albums]);
-
-  useEffect(() => {
     const fetchDate = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/spotifyStat');
+        const response = await axios.get('https://itzy-stats.onrender.com/spotifyStat');
         if (response.data.length > 0) {
           setDate(response.data[0].date);
         }
@@ -48,19 +29,18 @@ const SpotifyAlbumStats = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/spotifyStat/${date}`);
+        const response = await axios.get(`https://itzy-stats.onrender.com/spotifyStat/${date}`);
         const statsData = response.data[0]?.songTitles || [];
 
         const totalStreamsObj = {};
-        const totalDailyStreamsObj = {}; // Initialize totalDailyStreamsObj
+        const totalDailyStreamsObj = {};
 
-        songs.forEach(({ album, songs }) => {
+        albums.forEach(({ album, songs }) => {
           const matchedStats = statsData.filter(song => songs.includes(song.name));
+      
           const total = matchedStats.reduce((acc, song) => acc + parseInt(song.Streams.replace(/,/g, '')), 0);
           totalStreamsObj[album] = total;
-          console.log(matchedStats);
 
-          // Correct calculation for totalDailyStreams
           const totalDaily = matchedStats.reduce((acc, song) => acc + parseInt(song.DailyStreams.replace(/,/g, '')), 0);
           totalDailyStreamsObj[album] = totalDaily;
         });
@@ -73,11 +53,11 @@ const SpotifyAlbumStats = () => {
     };
 
     fetchStats();
-  }, [date, songs]);
+  }, [date, albums]);
 
   const pieChartData = albums.map(album => ({
-    name: album,
-    value: parseInt(totalStreams[album] || 0), 
+    name: album.album,
+    value: parseInt(totalStreams[album.album] || 0), 
   }));
 
   const getColor = (index) => {
@@ -91,10 +71,9 @@ const SpotifyAlbumStats = () => {
 
   return (
     <div className='Album-stats'>
-      
       <div className='spotify-table'>
-      <p className='albumdate'>Date: {date}</p>
-      <table>
+        <p className='albumdate'>Date: {date}</p>
+        <table>
           <thead>
             <tr>
               <th>Album</th>
@@ -104,10 +83,10 @@ const SpotifyAlbumStats = () => {
           </thead>
           <tbody>
             {albums.map((album, index) => (
-              <tr key={album}>
-                <td style={{ backgroundColor: colors[index] }}>{album}</td>
-                <td>{parseInt(totalStreams[album] || 0).toLocaleString()}</td>
-                <td>{parseInt(totalDailyStreams[album] || 0).toLocaleString()}</td>
+              <tr key={album.album}>
+                <td className='albumInfo'> <img src={album.image} alt={album.album} className='albumCover'/> {album.name}</td>
+                <td>{parseInt(totalStreams[album.album] || 0).toLocaleString()}</td>
+                <td>{parseInt(totalDailyStreams[album.album] || 0).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>
@@ -132,12 +111,9 @@ const SpotifyAlbumStats = () => {
         </Pie>
         <Tooltip />
       </PieChart>
-
-      {/* Render your table using useStats and totalStreams */}
     </div>
   );
 };
 
 export default SpotifyAlbumStats;
-
 

@@ -8,7 +8,7 @@ const FrontGraphYt = ({ videoId }) => {
     useEffect(() => {
         const fetchChartData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/frontGrpah/${videoId}`);
+                const response = await axios.get(`https://itzy-stats.onrender.com/frontGrpah/${videoId}`);
                 const data = response.data;
 
                 // Process data to extract timestamp and view count

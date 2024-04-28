@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import YouTubeVideoCard from './YouTubeVideoCard';
+import ArrangedYt from './ArrangedYt';
 
 const TodayMostWatched = () => {
     const videoIds = ["VkIEfqHFNkU", "5e3rKInegeU", "1843Q679cvg", "HnXCezrJEdM", "z75GlxXEfZk", 
@@ -19,7 +19,7 @@ const TodayMostWatched = () => {
         const fetchYesterdayStats = async () => {
             try {
                 const promises = videoIds.map(async (videoId) => {
-                    const response = await axios.get(`http://localhost:3001/videoStats/${videoId}`);
+                    const response = await axios.get(`https://itzy-stats.onrender.com/videoStats/${videoId}`);
                     return { id: videoId, viewCount: response.data?.viewCount };
                 });
     
@@ -49,11 +49,9 @@ const TodayMostWatched = () => {
                     const todayViewsCount = currentViewCount - yesterdayViewCount;
                     return { ...video, todayViewsCount };
                 });
-                console.log(todayViewsData);
                 const sortedTodayViewsData = todayViewsData.slice().sort((a, b) => b.todayViewsCount - a.todayViewsCount);
                 setTodayViews(sortedTodayViewsData);
                 const sortedVideoIds = sortedTodayViewsData.map(video => video.id);
-                console.log(sortedVideoIds);
               
                 setVideoIds(sortedVideoIds);
             } catch (error) {
@@ -79,15 +77,13 @@ const TodayMostWatched = () => {
                         <th>Thumbnail</th>
                         <th>Title</th>
                         <th>Today Views Count</th>
-                        <th>Views Count</th>
-                        <th>Comment Count</th>
-                        <th>Like Count</th>
-                        <th>Released</th>
+                        <th>Total Views Count</th>
+                        <th>Daily Views Growth</th>
                     </tr>
                 </thead>
                 <tbody>
                      {arangedVideoIds.map((videoId, index) => (
-                        <YouTubeVideoCard key={videoId} index={index + 1} videoId={videoId} />
+                        <ArrangedYt key={videoId} index={index + 1} videoId={videoId} />
                      ))}
                 </tbody>
             </table>

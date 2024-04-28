@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const SpotifyTable = ({ date }) => {
+const SpotifyAlbumTable = ({ date }) => {
   const [songs, setSongs] = useState([]);
 
   useEffect(() => {
     const fetchSongs = async () => {
 
       try {
-        const response = await axios.get(`http://localhost:3001/spotifyStat/${date}`);
+        const response = await axios.get(`https://itzy-stats.onrender.com/spotifyStat/${date}`);
         setSongs(response.data[0]?.songTitles);
       } catch (error) {
         console.error('Error fetching songs:', error);
@@ -25,8 +25,8 @@ const SpotifyTable = ({ date }) => {
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Streams</th>
+              <th>Album Name</th>
+              <th>Total Streams</th>
               <th>Daily Streams</th>
             </tr>
           </thead>
@@ -47,5 +47,4 @@ const SpotifyTable = ({ date }) => {
   );
 };
 
-export default SpotifyTable;
-
+export default SpotifyAlbumTable;

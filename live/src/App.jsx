@@ -4,9 +4,9 @@ import Navbar from './Components/NavbarSpecial';
 import FilterOptions from './Components/FilterOptions';
 import GraphData from './Components/Graphs/GraphData';
 import HeroSection from './Components/Hero/HeroSection'
-import ItzySpotifyStats from './Components/Pages/ItzySpotifyStats';
+import ItzySpotifyStats from './Components/Pages/Spotify/ItzySpotifyStats';
 import ItzyDashBoard from './Components/Pages/ItzyDashBoard';
-import SpotifyAlbumStats from './Components/Pages/SpotifyAlbumStats';
+import SpotifyAlbumStats from './Components/Pages/Spotify/SpotifyAlbumStats';
 import './App.css';
 
 const App = () => {

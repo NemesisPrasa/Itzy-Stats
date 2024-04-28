@@ -8,7 +8,7 @@ const SpotifyInfo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/spotifyInfo');
+        const response = await axios.get('https://itzy-stats.onrender.com/spotifyInfo');
         const data = response.data;
         setChartData(data);
       } catch (error) {

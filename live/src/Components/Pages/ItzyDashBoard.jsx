@@ -2,7 +2,6 @@ import React from 'react';
 import FrontGraphYt from './FrontGraphYt';
 import FrontGraphYtChannel from './FrontGraphYtChannel';
 import InstaFollowers from './InstaFollowers';
-import ArtistInfoComponent from './ArtistInfoComponent';
 import './itzyDashBoard.css';
 import SpotifyInfo from './SpotifyInfo';
 import SpotifyFrontGraph from './SpotifyFrontGraph';

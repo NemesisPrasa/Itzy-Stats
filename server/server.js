@@ -27,31 +27,6 @@ mongoose.connect('mongodb+srv://Nemesis:Nemesis@kdrama.7pez0qj.mongodb.net/ItzyS
     console.log('Connected to MongoDB');
 })
 .catch(err => console.error('MongoDB connection error:', err));
-
-// Scheduled job to fetch and update video statistics at 8:30 PM daily
-cron.schedule('30 20 * * *', async () => {
-    try {
-        // Fetch video statistics from YouTube API for each video ID
-        const videoIds = ["VkIEfqHFNkU", "5e3rKInegeU", "1843Q679cvg", "HnXCezrJEdM", "z75GlxXEfZk", 
-        "OSRMoNKftyk", "4R7vRFGJr3k", "0bIRwBpBcZQ", "FcQ6oB1JPiA", "RmTq3cJqyCo", 
-        "zugAhfd2r0g", "6uZy86ePgO0", "Hbb5GPxXF1w", "9oyodEkzn94", "MjCZfZfucEc", 
-        "_ysomCGaZLw", "dnXyghQd2O8", "wTowEKjDGkU", "fE2h3lGlOsk", "zndvqTc4P9I", 
-        "pNfTK39k55U", "krzf1hkFAZA", "F-QTb-0wRGk", "yeHZNPplmm4", "K0xFPQ2CX5E", 
-        "ytTlH0EpSqI", "5S1nsJs2O6s",];
-         // Add more video IDs as needed
-        for (const videoId of videoIds) {
-            const response = await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=statistics&key=AIzaSyAEnQL2SMLAwccHSI8YV2713W_RERBj7-k`);
-            const { viewCount, likeCount } = response.data.items[0].statistics;
-            // Update video statistics in the database
-            await VideoStats.create({ videoId, viewCount, likeCount });
-        }
-        console.log('Video statistics updated successfully');
-    } catch (err) {
-        console.error('Error updating video statistics:', err.response.data.error.message);
-    }
-});
-
-
 app.get('/videoStats/:videoId', async (req, res) => {
     try {
         const { videoId } = req.params;
